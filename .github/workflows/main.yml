@@ -16,23 +16,17 @@ jobs:
     - run: flutter pub get
     # - run: flutter test
     - run: flutter build apk
-    - run: flutter build appbundle
-
-    # steps:
-    # - uses: actions/checkout@v1
-
-    # - name: install dependencies
-    #   uses: steebchen/flutter@v1.1.0
-    #   with:
-    #     flutter-version: '2.14.0'
-    #     args: pub get
-
-    # - name: run tests
-    #   uses: steebchen/flutter@v1.1.0
-    #   with:
-    #     args: test
-
-    # - name: build apk
-    #   uses: steebchen/flutter@v1.1.0
-    #   with:
-    #     args: build apk --release
+    - run: flutter build appbundle  
+    - name: build release
+      run: ./gradlew assembleRelease
+    - name: upload artefact to App Center
+      uses: wzieba/AppCenter-Github-Action@v1
+      with:
+        appName: HarithaSeddik/CI_Testing
+        token: ${{secrets.APP_CENTER_TOKEN}}
+        group: Testers
+        file: app/build/outputs/apk/release/app-release-unsigned.apk
+        notifyTesters: true
+        debug: false
+      
+      

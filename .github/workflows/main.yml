@@ -20,7 +20,7 @@ jobs:
     - name: upload artefact to App Center
       uses: wzieba/AppCenter-Github-Action@v1
       with:
-        appName: CIAppTest
+        appName: app
         token: ${{secrets.APP_CENTER_TOKEN}}
         group: Testers
         file: build/app/outputs/flutter-apk/app-release.apk
